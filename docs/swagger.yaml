@@ -1,0 +1,381 @@
+definitions:
+  httpresponse.SetResponse:
+    properties:
+      accessTime:
+        type: string
+      data: {}
+      status:
+        type: string
+    type: object
+  request.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  request.RegisterRequest:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      role_id:
+        type: integer
+      username:
+        type: string
+    required:
+    - email
+    - first_name
+    - password
+    - username
+    type: object
+  request.RoleRequest:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  request.UserUpdateRequest:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        description: optional — only updated when non-empty
+        type: string
+      role_id:
+        type: integer
+      username:
+        type: string
+    required:
+    - email
+    - first_name
+    - role_id
+    - username
+    type: object
+info:
+  contact: {}
+paths:
+  /account/{uid}:
+    delete:
+      description: delete user by uid
+      parameters:
+      - description: User UID
+        in: path
+        name: uid
+        required: true
+        type: string
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: delete user by uid
+      tags:
+      - auth
+    get:
+      description: get user by uid
+      parameters:
+      - description: User UID
+        in: path
+        name: uid
+        required: true
+        type: string
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: get user by uid
+      tags:
+      - auth
+    put:
+      description: update user by uid
+      parameters:
+      - description: User UID
+        in: path
+        name: uid
+        required: true
+        type: string
+      - description: Update User Request Body
+        in: body
+        name: UserUpdateRequest
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserUpdateRequest'
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: update user by uid
+      tags:
+      - auth
+  /account/login:
+    post:
+      description: login user, returns JWT token
+      parameters:
+      - description: Login Request Body
+        in: body
+        name: LoginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginRequest'
+      - description: app version
+        in: header
+        name: X-Version
+        type: string
+      - description: device uiid
+        in: header
+        name: X-DEVICE-UIID
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: login user
+      tags:
+      - auth
+  /account/logout:
+    post:
+      description: logout user (stateless — client discards the token)
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: logout user
+      tags:
+      - auth
+  /account/register:
+    post:
+      description: register user
+      parameters:
+      - description: Register Request Body
+        in: body
+        name: RegisterRequest
+        required: true
+        schema:
+          $ref: '#/definitions/request.RegisterRequest'
+      - description: app version
+        in: header
+        name: X-Version
+        type: string
+      - description: device uiid
+        in: header
+        name: X-DEVICE-UIID
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: register user
+      tags:
+      - auth
+  /role:
+    get:
+      description: list all roles
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: list roles
+      tags:
+      - role
+    post:
+      description: create role
+      parameters:
+      - description: Create Role Request Body
+        in: body
+        name: RoleRequest
+        required: true
+        schema:
+          $ref: '#/definitions/request.RoleRequest'
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: create role
+      tags:
+      - role
+  /role/{id}:
+    delete:
+      description: delete role by id
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: delete role by id
+      tags:
+      - role
+    get:
+      description: get role by id
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: get role by id
+      tags:
+      - role
+    put:
+      description: update role by id
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Role Request Body
+        in: body
+        name: RoleRequest
+        required: true
+        schema:
+          $ref: '#/definitions/request.RoleRequest'
+      - description: Bearer token
+        in: header
+        name: Authorization
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpresponse.SetResponse'
+      summary: update role by id
+      tags:
+      - role
+swagger: "2.0"

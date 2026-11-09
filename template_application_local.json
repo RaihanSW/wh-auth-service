@@ -1,0 +1,46 @@
+{
+    "secretkey": "NTY3RzU1M1l6NnI2RHUyNExuOVRSUHBXZTZ3R1NaMlQ=",
+    "service_name":"WAREHOUSE-SERVICE",
+    "port": {
+        "service": 4000,
+        "servicetimeout": 15,
+        "profiler": 9090,
+        "profilertimeout": 300
+    },
+    "database": {
+        "warehouse_db": {
+            "driver": "postgresql",
+            "username": "postgres",
+            "password": "6145@Cinema",
+            "hostname": "localhost:5432",
+            "dbname": "warehouse_db",
+            "timeout": 5,
+            "maxopenconns": 1,
+            "maxidleconns": 1,
+            "connmaxlifetime": 5
+        }
+    },
+  "redis": {
+    "address": "10.1.1.2",
+    "password": "7338c073-5111-4061-8f0a-3a05d67a576e",
+    "port": "6379",
+    "dbindex": 0,
+    "maxidle": 5,
+    "idletimeout": 5,
+    "maxactive": 10
+  },
+    "state": {
+        "rewrite_sid": true
+    },
+    "jwt": {
+        "tokenexp": 3,
+        "reftokenexp": 1
+    },
+    "log": {
+        "request": true,
+        "success_response": true,
+        "failed_response": false,
+        "external_request": true,
+        "external_response": true
+    }
+}
