@@ -1,5 +1,4 @@
-# dc-transaction-service
-- service config get value from vault and put on file named application_env (e.g. application_local)
+# wh-auth-service
 - install swagger on local machine : make install-swag
 - install mockery on local machine : make install-mockery
 - download go dependencies : go mod tidy
@@ -47,7 +46,15 @@ Yang dibuat migrasi saat ini (folder `migration/`):
 
 | Version | Name | Isi |
 |---|---|---|
-| 202611090001 | `create_user_schema_tables` | schema `"User"` + `"User".roles` + `"User".users` |
+| 202611090001 | `create_user_schema_tables` | schema `"User"` + 2 tabel (lihat daftar di bawah) |
+
+Semua tabel yang dicakup migrasi project ini:
+
+| Tabel | Keterangan |
+|---|---|
+| `"User".roles` | lookup role — `id` INT PK, `name` VARCHAR(32) |
+| `"User".users` | akun user — `uid` VARCHAR(16) PK (DB-generated), `first_name`, `last_name`, `username` UNIQUE, `email` UNIQUE, `role_id` → `roles`, `password` (SHA256) |
+| `schema_migrations` | tracking migrasi (auto-create, bukan bagian schema `"User"`) |
 
 Tiap migrasi tercatat di tabel `schema_migrations` (auto-create) di DB
 target, jadi `migrate up` aman dijalankan berulang — yang sudah applied
