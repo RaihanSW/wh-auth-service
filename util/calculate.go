@@ -3,16 +3,7 @@ package util
 import (
 	"fmt"
 	"time"
-
-	"github.com/cinemaxxi-team/xxi-library/general"
 )
-
-func CalculateDistance(latSrc float64, longSrc float64, latDest float64, longDest float64) float64 {
-	if latSrc == 0 || longSrc == 0 || latDest == 0 || longDest == 0 {
-		return 0
-	}
-	return general.CalculateDistance(latSrc, longSrc, latDest, longDest)
-}
 
 func CalculateDateToWIB(date string, timeFormat string, timeZone string) (dateTime time.Time, err error) {
 	loc, err := time.LoadLocation("Local")

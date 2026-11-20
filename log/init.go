@@ -1,26 +1,12 @@
 package log
 
 import (
-	"github.com/cinemaxxi-team/xxi-library/logging"
+	"log/slog"
+	"os"
 )
 
-var Logging *logging.Logger
+var Logging = slog.Default()
 
 func InitLog() {
-	cfg := [2]logging.LogConfig{
-		{
-			FileName:   "logs/access.log",
-			MaxSize:    50,
-			MaxBackups: 3,
-			MaxAge:     28,
-		},
-		{
-			FileName:   "logs/error.log",
-			MaxSize:    50,
-			MaxBackups: 3,
-			MaxAge:     28,
-		},
-	}
-
-	Logging = logging.InitLogger(cfg)
+	Logging = slog.New(slog.NewTextHandler(os.Stdout, nil))
 }

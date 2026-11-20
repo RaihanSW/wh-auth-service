@@ -5,10 +5,6 @@ FROM golang:latest as builder
 RUN mkdir /go/src/service
 ADD . /go/src/service
 WORKDIR /go/src/service
-ENV GOPRIVATE=github.com/cinemaxxi-team
-#RUN apk add git
-# Copy the .netrc file, NOTE the file from Jenkins
-RUN cp /go/src/service/.netrc $HOME/.netrc
 RUN go mod tidy
 RUN go mod vendor
 

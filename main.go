@@ -3,21 +3,20 @@ package main
 import (
 	"context"
 	"database/sql"
-	"dc-transaction-service/app/controller"
-	apihandler "dc-transaction-service/app/controller/handler"
-	"dc-transaction-service/app/repository"
-	"dc-transaction-service/app/service"
-	"dc-transaction-service/config"
-	"dc-transaction-service/log"
-	"dc-transaction-service/migration"
-	"dc-transaction-service/seed"
 	"flag"
-	"fmt"
 	syslog "log"
 	"os"
 	"os/signal"
 	"strconv"
 	"time"
+	"wh-auth-service/app/controller"
+	apihandler "wh-auth-service/app/controller/handler"
+	"wh-auth-service/app/repository"
+	"wh-auth-service/app/service"
+	"wh-auth-service/config"
+	"wh-auth-service/log"
+	"wh-auth-service/migration"
+	"wh-auth-service/seed"
 )
 
 func main() {
@@ -39,7 +38,8 @@ func main() {
 	// Init external connections
 	database, err := config.InitDBConnection(cfg)
 	if err != nil {
-		log.Logging.Fatalf("Error connecting to DB: %v\n", err)
+		log.Logging.Error("Error connecting to DB", "error", err)
+		os.Exit(1)
 	}
 
 	// DB maintenance subcommands: migrate / seed
@@ -63,7 +63,7 @@ func main() {
 	roleHandler := apihandler.NewRoleHandler(roleService)
 
 	// Run, service, run!!!!
-	log.Logging.Infoln("Application is running, Port : " + fmt.Sprintf("%v", cfg.Port.Service))
+	log.Logging.Info("Application is running", "port", cfg.Port.Service)
 	rest := controller.NewController(generalHandler, authHandler, roleHandler, cfg, env).StartRoute()
 
 	// Wait for the interrupt signal to gracefully shut down the server with
@@ -71,7 +71,7 @@ func main() {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, os.Interrupt)
 	<-quit
-	log.Logging.Infoln("Shutdown Application ...")
+	log.Logging.Info("Shutdown application")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 
@@ -85,9 +85,10 @@ func main() {
 	}()
 
 	if err := rest.Shutdown(ctx); err != nil {
-		log.Logging.Fatalf("Server Shutdown: %v", err)
+		log.Logging.Error("Server shutdown failed", "error", err)
+		os.Exit(1)
 	}
-	log.Logging.Infoln("Application Stopped")
+	log.Logging.Info("Application stopped")
 }
 
 // runDBCommand handles `migrate` / `seed` subcommands passed after flags,

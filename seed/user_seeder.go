@@ -3,7 +3,7 @@ package seed
 import (
 	"context"
 	"database/sql"
-	"dc-transaction-service/util"
+	"wh-auth-service/util"
 )
 
 func init() {

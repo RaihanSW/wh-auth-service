@@ -3,15 +3,15 @@ package middleware
 import (
 	"bytes"
 	"context"
-	httpresponse "dc-transaction-service/app/controller/handler/httpResponse"
-	"dc-transaction-service/config"
-	"dc-transaction-service/log"
-	"dc-transaction-service/util"
 	"io"
 	"net/http"
 	"net/http/httputil"
 	debug "runtime/debug"
 	"time"
+	httpresponse "wh-auth-service/app/controller/handler/httpResponse"
+	"wh-auth-service/config"
+	"wh-auth-service/log"
+	"wh-auth-service/util"
 )
 
 func Middleware() func(next http.Handler) http.Handler {
@@ -20,7 +20,7 @@ func Middleware() func(next http.Handler) http.Handler {
 			defer func() {
 				// recovery
 				if rec := recover(); rec != nil {
-					log.Logging.Errorf("recovered. Error: %v; stack trace: %s", rec, string(debug.Stack()))
+					log.Logging.Error("Recovered from panic", "error", rec, "stack", string(debug.Stack()))
 					httpresponse.Response(w, r, httpresponse.ServiceErrorDefault, http.StatusInternalServerError)
 					return
 				}
@@ -71,7 +71,7 @@ func LogMiddleware(cfg config.ApplicationConfig, next http.Handler) http.Handler
 			// Copy the body into the buffer
 			_, err := io.Copy(&bodyBuf, r.Body)
 			if err != nil {
-				log.Logging.Errorf("Error copying body: %v", err)
+				log.Logging.Error("Error copying request body", "error", err)
 			}
 		}
 
@@ -81,14 +81,14 @@ func LogMiddleware(cfg config.ApplicationConfig, next http.Handler) http.Handler
 		// Dump the request using httputil.DumpRequest
 		reqb, err := httputil.DumpRequest(r, false) // `true` includes the body if available
 		if err != nil {
-			log.Logging.Errorf("Error dumping request: %v", err)
+			log.Logging.Error("Error dumping request", "error", err)
 		} else {
 			// Log the full request details
 			if cfg.Log.Request {
-				log.Logging.Infof("%s Request - Headers: %s, Body: %s",
-					util.RequestIDLog(r.Context()),
-					string(reqb),
-					bodyBuf.String(),
+				log.Logging.Info("Request",
+					"request_id", util.RequestIDLog(r.Context()),
+					"headers", string(reqb),
+					"body", bodyBuf.String(),
 				)
 			}
 		}
@@ -101,10 +101,20 @@ func LogMiddleware(cfg config.ApplicationConfig, next http.Handler) http.Handler
 
 		// Log the response details after the response is written
 		if rw.statusCode >= http.StatusOK && rw.statusCode < http.StatusBadRequest && cfg.Log.SuccessResponse {
-			log.Logging.Infof(util.RequestIDLog(r.Context())+"Response: Status Code: %d, Duration: %s, Body: %s", rw.statusCode, time.Since(start), string(rw.body))
+			log.Logging.Info("Response",
+				"request_id", util.RequestIDLog(r.Context()),
+				"status_code", rw.statusCode,
+				"duration", time.Since(start),
+				"body", string(rw.body),
+			)
 		}
 		if rw.statusCode >= http.StatusBadRequest && cfg.Log.FailedResponse {
-			log.Logging.Infof(util.RequestIDLog(r.Context())+"Response: Status Code: %d, Duration: %s, Body: %s", rw.statusCode, time.Since(start), string(rw.body))
+			log.Logging.Info("Response",
+				"request_id", util.RequestIDLog(r.Context()),
+				"status_code", rw.statusCode,
+				"duration", time.Since(start),
+				"body", string(rw.body),
+			)
 		}
 	})
 }

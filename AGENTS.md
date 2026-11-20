@@ -1,4 +1,4 @@
-# dc-transaction-service — Agent Instructions
+# wh-auth-service — Agent Instructions
 
 Go (chi) service template. Auth boilerplate (register/login/logout) + user/role CRUD on schema `"User"`.
 
@@ -9,7 +9,7 @@ go mod tidy && swag init
 go run main.go -env local
 ```
 
-Config: `application_<env>.json` (`secretkey`, `database`, `redis`, `state`, `jwt`, `log`).
+Config: `application_<env>.json` (`secretkey`, `database`, `state`, `jwt`, `log`).
 
 ## DB Migration & Seeding
 
@@ -71,4 +71,3 @@ CREATE TABLE "User".users (
 
 - Single Postgres DB `warehouse_db` — no replica. Schema `"User"` holds `users` + `roles`.
 - Repositories are single-DB (`db` + `timeout` only); `InitDBConnection` still auto-aliases missing `<key>_replica` to the writer for any consumer that expects one.
-- Redis (`config/redis.go` — connection pool helper, not yet wired in `main.go`)

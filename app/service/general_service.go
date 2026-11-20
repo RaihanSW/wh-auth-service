@@ -2,10 +2,10 @@ package service
 
 import (
 	"context"
-	"dc-transaction-service/app/repository"
-	"dc-transaction-service/config"
 	"fmt"
 	"net/http"
+	"wh-auth-service/app/repository"
+	"wh-auth-service/config"
 )
 
 type generalServiceImpl struct {

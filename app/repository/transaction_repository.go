@@ -3,9 +3,9 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"dc-transaction-service/config"
 	"fmt"
 	"time"
+	"wh-auth-service/config"
 )
 
 type transactionRepository struct {

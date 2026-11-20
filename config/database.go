@@ -3,14 +3,13 @@ package config
 import (
 	"context"
 	"database/sql"
-	"dc-transaction-service/log"
 	"fmt"
 	"net/url"
 	"time"
+	"wh-auth-service/log"
 
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/jackc/pgx/v4/stdlib"
-	// "github.com/cinemaxxi-team/xxi-library/encryptor"
 )
 
 func InitDBConnection(cfg *ApplicationConfig) (map[string]*sql.DB, error) {
@@ -42,7 +41,7 @@ func InitDBConnection(cfg *ApplicationConfig) (map[string]*sql.DB, error) {
 func DbConnection(cfg DatabaseConfig) (*sql.DB, error) {
 	db, err := sql.Open("pgx", dsn(cfg))
 	if err != nil {
-		log.Logging.Errorf("Error %s when opening DB\n", err)
+		log.Logging.Error("Error when opening DB", "error", err)
 		return nil, err
 	}
 
@@ -54,10 +53,10 @@ func DbConnection(cfg DatabaseConfig) (*sql.DB, error) {
 	defer cancelfunc()
 	err = db.PingContext(ctx)
 	if err != nil {
-		log.Logging.Errorf("Errors %s pinging DB\n", err)
+		log.Logging.Error("Error pinging DB", "error", err)
 		return nil, err
 	}
-	log.Logging.Infof("Connected to DB %s successfully\n", cfg.DBname)
+	log.Logging.Info("Connected to DB successfully", "database", cfg.DBname)
 	return db, nil
 }
 
@@ -70,7 +69,7 @@ func dsn(cfg DatabaseConfig) string {
 func DbConnectionMysql(cfg DatabaseConfig) (*sql.DB, error) {
 	db, err := sql.Open("mysql", dsnMySQL(cfg))
 	if err != nil {
-		log.Logging.Errorf("Error %s when opening DB\n", err)
+		log.Logging.Error("Error when opening DB", "error", err)
 		return nil, err
 	}
 
@@ -82,10 +81,10 @@ func DbConnectionMysql(cfg DatabaseConfig) (*sql.DB, error) {
 	defer cancelfunc()
 	err = db.PingContext(ctx)
 	if err != nil {
-		log.Logging.Errorf("Errors %s pinging DB\n", err)
+		log.Logging.Error("Error pinging DB", "error", err)
 		return nil, err
 	}
-	log.Logging.Infof("Connected to DB %s successfully\n", cfg.DBname)
+	log.Logging.Info("Connected to DB successfully", "database", cfg.DBname)
 	return db, nil
 }
 

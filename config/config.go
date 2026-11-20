@@ -7,7 +7,6 @@ type ApplicationConfig struct {
 	ServiceName string                    `json:"service_name"`
 	Port        PortConfig                `json:"port"`
 	Database    map[string]DatabaseConfig `json:"database"`
-	RedisCfg    RedisConfig               `json:"redis"`
 	State       StateConfig               `json:"state"`
 	Jwt         JwtConfig                 `json:"jwt"`
 	Log         Log                       `json:"log"`
@@ -35,16 +34,6 @@ type PortConfig struct {
 	Profiler        int           `json:"profiler"`
 	ServiceTimeout  time.Duration `json:"servicetimeout"`
 	ProfilerTimeout time.Duration `json:"profilertimeout"`
-}
-
-type RedisConfig struct {
-	Address              string        `json:"address"`  //address - ip
-	Password             string        `json:"password"` //password
-	Port                 string        `json:"port"`     // port
-	DB                   int           `json:"db"`
-	MaxIdleConnections   int           `json:"maxidle"`
-	IdleTimeout          time.Duration `json:"idletimeout"`
-	MaxActiveConnections int           `json:"maxactive"`
 }
 
 type StateConfig struct {

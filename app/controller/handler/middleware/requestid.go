@@ -3,9 +3,9 @@ package middleware
 import (
 	"context"
 	"crypto/rand"
-	"dc-transaction-service/util"
 	"encoding/base64"
 	"net/http"
+	"wh-auth-service/util"
 )
 
 func generateRequestID() string {

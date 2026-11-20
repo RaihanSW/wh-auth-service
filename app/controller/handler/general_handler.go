@@ -1,10 +1,10 @@
 package handler
 
 import (
-	httpresponse "dc-transaction-service/app/controller/handler/httpResponse"
-	"dc-transaction-service/app/model/response"
-	"dc-transaction-service/app/service"
 	"net/http"
+	httpresponse "wh-auth-service/app/controller/handler/httpResponse"
+	"wh-auth-service/app/model/response"
+	"wh-auth-service/app/service"
 )
 
 type generalHandler struct {

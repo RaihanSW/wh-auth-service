@@ -1,16 +1,16 @@
 package controller
 
 import (
-	"dc-transaction-service/app/controller/handler"
-	"dc-transaction-service/app/controller/handler/middleware"
-	"dc-transaction-service/app/model/constant"
-	"dc-transaction-service/config"
-	"dc-transaction-service/docs"
 	"fmt"
 	"log"
 	"net/http"
 	"strings"
 	"time"
+	"wh-auth-service/app/controller/handler"
+	"wh-auth-service/app/controller/handler/middleware"
+	"wh-auth-service/app/model/constant"
+	"wh-auth-service/config"
+	"wh-auth-service/docs"
 
 	"github.com/go-chi/chi/v5"
 	httpSwagger "github.com/swaggo/http-swagger/v2"

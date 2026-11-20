@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"dc-transaction-service/app/model/entity"
-	"dc-transaction-service/app/model/request"
+	"wh-auth-service/app/model/entity"
+	"wh-auth-service/app/model/request"
 )
 
 type RoleServiceInterface interface {

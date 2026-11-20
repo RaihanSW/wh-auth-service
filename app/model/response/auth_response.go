@@ -1,6 +1,6 @@
 package response
 
-import "dc-transaction-service/app/model/entity"
+import "wh-auth-service/app/model/entity"
 
 type AuthRegisterResponse struct {
 	GeneralResponse

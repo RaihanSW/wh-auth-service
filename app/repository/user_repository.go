@@ -3,11 +3,11 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"dc-transaction-service/app/model/entity"
-	"dc-transaction-service/app/repository/query"
-	"dc-transaction-service/config"
 	"fmt"
 	"time"
+	"wh-auth-service/app/model/entity"
+	"wh-auth-service/app/repository/query"
+	"wh-auth-service/config"
 )
 
 type userRepository struct {

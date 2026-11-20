@@ -2,9 +2,9 @@ package util
 
 import (
 	"context"
-	"dc-transaction-service/app/model/entity"
 	"errors"
 	"time"
+	"wh-auth-service/app/model/entity"
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"

@@ -1,13 +1,13 @@
 package handler
 
 import (
-	httpresponse "dc-transaction-service/app/controller/handler/httpResponse"
-	"dc-transaction-service/app/model/request"
-	"dc-transaction-service/app/model/response"
-	"dc-transaction-service/app/service"
-	"dc-transaction-service/util"
 	"encoding/json"
 	"net/http"
+	httpresponse "wh-auth-service/app/controller/handler/httpResponse"
+	"wh-auth-service/app/model/request"
+	"wh-auth-service/app/model/response"
+	"wh-auth-service/app/service"
+	"wh-auth-service/util"
 
 	"github.com/go-chi/chi/v5"
 )

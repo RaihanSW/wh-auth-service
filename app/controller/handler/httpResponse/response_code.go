@@ -2,11 +2,11 @@ package httpresponse
 
 import (
 	"context"
-	"dc-transaction-service/app/model/response"
-	"dc-transaction-service/log"
-	"dc-transaction-service/util"
 	"net/http"
 	"strings"
+	"wh-auth-service/app/model/response"
+	"wh-auth-service/log"
+	"wh-auth-service/util"
 )
 
 // service code
@@ -34,8 +34,8 @@ func ErrorHandler(ctx context.Context, err error, status int, resp *response.Gen
 	resp.SetError(GetErrorMessage(err.Error()))
 	if status >= http.StatusInternalServerError {
 		resp.SetError(http.StatusText(http.StatusInternalServerError))
-		log.Logging.Errorln(util.RequestIDLog(ctx) + err.Error())
+		log.Logging.Error(util.RequestIDLog(ctx) + err.Error())
 		return
 	}
-	log.Logging.Warnln(util.RequestIDLog(ctx) + err.Error())
+	log.Logging.Warn(util.RequestIDLog(ctx) + err.Error())
 }

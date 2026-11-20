@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"dc-transaction-service/app/model/entity"
+	"wh-auth-service/app/model/entity"
 )
 
 type RoleRepositoryInterface interface {

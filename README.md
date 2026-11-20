@@ -98,7 +98,7 @@ Shortcut Makefile: `make migrate-up`, `make migrate-down STEPS=n`,
 
 ## Testing
 
-Unit test memakai stub hand-written (tanpa DB/redis/network), contoh:
+Unit test memakai stub hand-written (tanpa DB atau network), contoh:
 `app/service/auth_service_test.go`.
 
 ```bash
@@ -121,4 +121,4 @@ go test ./app/service/ -run 'TestAuthLogin_Success' -v
 go test ./app/service/ -coverprofile=cover.out && go tool cover -func=cover.out
 ```
 
-Catatan: `TestMain` meng-init logger ke `logs/*.log` — pastikan folder `logs/` ada.
+Catatan: `TestMain` menginisialisasi logger standar Go (`log/slog`) ke stdout.

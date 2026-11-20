@@ -1,6 +1,6 @@
 {
     "secretkey": "NTY3RzU1M1l6NnI2RHUyNExuOVRSUHBXZTZ3R1NaMlQ=",
-    "service_name":"WAREHOUSE-SERVICE",
+    "service_name":"WH-AUTH-SERVICE",
     "port": {
         "service": 4000,
         "servicetimeout": 15,
@@ -20,15 +20,6 @@
             "connmaxlifetime": 5
         }
     },
-  "redis": {
-    "address": "10.1.1.2",
-    "password": "7338c073-5111-4061-8f0a-3a05d67a576e",
-    "port": "6379",
-    "dbindex": 0,
-    "maxidle": 5,
-    "idletimeout": 5,
-    "maxactive": 10
-  },
     "state": {
         "rewrite_sid": true
     },

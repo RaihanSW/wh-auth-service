@@ -13,15 +13,15 @@ package service
 import (
 	"context"
 	"database/sql"
-	"dc-transaction-service/app/model/entity"
-	"dc-transaction-service/app/model/request"
-	"dc-transaction-service/app/repository"
-	"dc-transaction-service/config"
-	"dc-transaction-service/util"
 	"encoding/base64"
 	"errors"
 	"net/http"
 	"testing"
+	"wh-auth-service/app/model/entity"
+	"wh-auth-service/app/model/request"
+	"wh-auth-service/app/repository"
+	"wh-auth-service/config"
+	"wh-auth-service/util"
 )
 
 // stubUserRepo — implement UserRepositoryInterface; method lain tetap
