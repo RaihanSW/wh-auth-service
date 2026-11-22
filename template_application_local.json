@@ -11,7 +11,7 @@
         "warehouse_db": {
             "driver": "postgresql",
             "username": "postgres",
-            "password": "6145@Cinema",
+            "password": "",
             "hostname": "localhost:5432",
             "dbname": "warehouse_db",
             "timeout": 5,

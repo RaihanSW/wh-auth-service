@@ -3,7 +3,7 @@ definitions:
     properties:
       accessTime:
         type: string
-      data: {}
+      results: {}
       status:
         type: string
     type: object

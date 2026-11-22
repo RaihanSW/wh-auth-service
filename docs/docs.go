@@ -492,7 +492,7 @@ const docTemplate = `{
                 "accessTime": {
                     "type": "string"
                 },
-                "data": {},
+                "results": {},
                 "status": {
                     "type": "string"
                 }

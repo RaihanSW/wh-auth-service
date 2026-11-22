@@ -43,6 +43,7 @@ func NewController(
 func (c *Controller) StartRoute() *http.Server {
 	r := chi.NewRouter()
 
+	r.Use(corsMiddleware())
 	r.Use(middleware.Middleware())
 
 	r.Get("/ping", middleware.SetRequestID(c.generalHandler.Ping))

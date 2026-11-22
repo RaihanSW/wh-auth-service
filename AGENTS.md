@@ -2,6 +2,10 @@
 
 Go (chi) service template. Auth boilerplate (register/login/logout) + user/role CRUD on schema `"User"`.
 
+## Development Conventions
+
+- Do not create test files unless explicitly requested.
+
 ## Build & Run
 
 ```bash

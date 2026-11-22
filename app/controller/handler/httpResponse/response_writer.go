@@ -8,15 +8,15 @@ import (
 
 type SetResponse struct {
 	Status     string      `json:"status"`
-	Data       interface{} `json:"data,omitempty"`
+	Results    interface{} `json:"results,omitempty"`
 	AccessTime string      `json:"accessTime"`
 }
 
-func Response(w http.ResponseWriter, r *http.Request, data interface{}, code int) {
+func Response(w http.ResponseWriter, r *http.Request, results interface{}, code int) {
 	setResponse := SetResponse{
 		Status:     http.StatusText(code),
 		AccessTime: time.Now().Format("02-01-2006 15:04:05"),
-		Data:       data}
+		Results:    results}
 	response, _ := json.Marshal(setResponse)
 	w.Header().Set("Content-Type", "Application/json")
 	w.WriteHeader(code)
