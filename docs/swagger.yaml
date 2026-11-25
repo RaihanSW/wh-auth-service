@@ -1,7 +1,12 @@
 definitions:
   httpresponse.SetResponse:
     properties:
-      accessTime:
+      warehouse:
+        $ref: '#/definitions/httpresponse.WarehouseResponse'
+    type: object
+  httpresponse.WarehouseResponse:
+    properties:
+      accessedTime:
         type: string
       results: {}
       status:

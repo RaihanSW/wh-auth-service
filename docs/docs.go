@@ -489,7 +489,15 @@ const docTemplate = `{
         "httpresponse.SetResponse": {
             "type": "object",
             "properties": {
-                "accessTime": {
+                "warehouse": {
+                    "$ref": "#/definitions/httpresponse.WarehouseResponse"
+                }
+            }
+        },
+        "httpresponse.WarehouseResponse": {
+            "type": "object",
+            "properties": {
+                "accessedTime": {
                     "type": "string"
                 },
                 "results": {},
